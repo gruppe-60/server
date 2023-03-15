@@ -13,7 +13,7 @@ const listeCreate = async (req, res) => {
     await newListe.save();
     res.json({ message: " liste  created!" });
   } catch (error) {
-    res.status(500).json({ message: "server error", error });
+    res.status(500).json({ message: "server error" });
   }
 };
 
@@ -24,7 +24,7 @@ const listeDelete = async (req, res) => {
     await Liste.findByIdAndDelete(id);
     res.json({ message: "liste deleted!" });
   } catch (error) {
-    res.status(500).json({ message: "server error", error });
+    res.status(500).json({ message: "server error" });
   }
 };
 
@@ -33,7 +33,7 @@ const allListe = async (req, res) => {
     const allListe = await Liste.find().populate("items");
     res.json({ allListe });
   } catch (error) {
-    res.status(500).json({ message: "server error", error });
+    res.status(500).json({ message: "server error" });
   }
 };
 
@@ -43,9 +43,8 @@ const listeItemCreate = async (req, res) => {
 
   try {
     const MyListe = await Liste.findById(id);
-    console.log(MyListe);
+
     if (!MyListe) {
-      console.log("not exist");
       return res.status(500).json({ message: "not exist" });
     }
 
@@ -55,40 +54,30 @@ const listeItemCreate = async (req, res) => {
 
     MyListe.items.push(newListeItem._id);
 
-    // console.log(MyListe);
     await newListeItem.save();
 
     await Liste.findOneAndUpdate({ _id: id }, MyListe);
     res.json({ message: "item added!" });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "server error", error });
+    res.status(500).json({ message: "server error" });
   }
 };
 
-// const listeItemDelete = async (req, res) => {
-//   const { id, itemid } = req.params;
+const listeItemDelete = async (req, res) => {
+  const { id, itemid } = req.params;
 
-//   try {
-//     const MyListe = await Liste.findById(id);
-//     if (!MyListe) {
-//       console.log("not exist");
-//       return res.status(500).json({ message: "not exist", error });
-//     }
+  try {
+    const MyListe = await Liste.findById(id);
+    if (!MyListe) {
+      return res.status(500).json({ message: "not exist" });
+    }
 
-//     const f = MyListe.items.map(item => {
-//       console.log(item);
-//       if (item == new ObjectId("6411bb975ac6cc2c6bb7cf48")) {
-
-//       }
-//     });
-
-//     await Liste.findOneAndUpdate({ _id: id }, MyListe);
-//     res.json({ message: "item deleted!" });
-//   } catch (error) {
-//     res.status(500).json({ message: "server error", error });
-//   }
-// };
+    await Liste.updateOne({ _id: id }, { $pull: { items: itemid } });
+    res.json({ message: "item deleted!" });
+  } catch (error) {
+    res.status(500).json({ message: "server error" });
+  }
+};
 
 // const listeItemUpdate = async (req, res) => {
 //   try {
@@ -99,6 +88,6 @@ module.exports = {
   listeCreate,
   listeItemCreate,
   allListe,
-  listeDelete
-  // listeItemDelete
+  listeDelete,
+  listeItemDelete
 };
