@@ -1,9 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const listeRoute = require("./routes/listeRoute.js");
+
 const app = express();
 dotenv.config();
 app.use(express.json());
+app.use("/liste", listeRoute);
 
 const URI = `mongodb+srv://${process.env.DB_USER}:${process.env
   .DB_PASS}@${process.env.DB_HOST}/${process.env
