@@ -37,6 +37,17 @@ const allListe = async (req, res) => {
   }
 };
 
+const oneList = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const oneList = await Liste.findById(id).populate("items");
+    res.json({ oneList });
+  } catch (error) {
+    res.status(500).json({ message: "server error" });
+  }
+};
+
 const listeItemCreate = async (req, res) => {
   const { name } = req.body;
   const { id } = req.params;
@@ -89,5 +100,6 @@ module.exports = {
   listeItemCreate,
   allListe,
   listeDelete,
-  listeItemDelete
+  listeItemDelete,
+  oneList
 };
