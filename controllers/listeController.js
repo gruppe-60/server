@@ -42,6 +42,9 @@ const oneList = async (req, res) => {
 
   try {
     const oneList = await Liste.findById(id).populate("items");
+    if (!oneList) {
+      return res.status(500).json({ message: "not exist" });
+    }
     res.json({ oneList });
   } catch (error) {
     res.status(500).json({ message: "server error" });
