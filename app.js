@@ -3,12 +3,15 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const listeRoute = require("./routes/listeRoute.js");
+const authRoute = require("./routes/authRoute.js");
 
 const app = express();
 app.use(cors());
 dotenv.config();
 app.use(express.json());
 app.use("/liste", listeRoute);
+app.use("/auth", authRoute);
+
 
 const URI = `mongodb+srv://${process.env.DB_USER}:${process.env
   .DB_PASS}@${process.env.DB_HOST}/${process.env
