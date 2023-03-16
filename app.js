@@ -7,7 +7,7 @@ const listeRoute = require("./routes/listeRoute.js");
 const authRoute = require("./routes/authRoute.js");
 
 const app = express();
-app.use(cors());
+app.use(cors({credentials: true, origin: 'http://localhost:5173'}));
 dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
