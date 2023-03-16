@@ -1,4 +1,5 @@
 const express = require("express");
+// const { authenticate } = require("../middleware/authenticate.js");
 
 const {
   listeCreate,
@@ -12,11 +13,11 @@ const {
 const router = express.Router();
 
 router.post("/create", listeCreate);
-router.post("/:id/item-create", listeItemCreate);
+router.post("/item-create/:id", listeItemCreate);
 router.get("/allListe", allListe);
 router.get("/:id", oneList);
 
-router.post("/:id/delete", listeDelete);
-router.post("/:id/:itemid/delete", listeItemDelete);
+router.post("/delete/:id", listeDelete);
+router.post("/delete/:id/:itemid", listeItemDelete);
 
 module.exports = router;
