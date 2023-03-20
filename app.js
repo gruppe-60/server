@@ -6,7 +6,7 @@ const listeRoute = require("./routes/listeRoute.js");
 const authRoute = require("./routes/authRoute.js");
 
 const app = express();
-app.use(cors({credentials: true,  origin: 'http://localhost:5174'}));
+app.use(cors({credentials: true,  origin: 'http://localhost:5173'}));
 dotenv.config();
 app.use(express.json());
 app.use("/liste", listeRoute);

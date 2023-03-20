@@ -19,8 +19,8 @@ const listeCreate = async (req, res) => {
 
 const listeDelete = async (req, res) => {
   const { id } = req.params;
-  const token = req.cookies.token;
-  console.log(token)
+  // const token = req.cookies.token;
+  // console.log(token)
   try {
     await Liste.findByIdAndDelete(id);
     res.json({ message: "liste deleted!" });
@@ -80,8 +80,8 @@ const listeItemCreate = async (req, res) => {
 
 const listeItemDelete = async (req, res) => {
   const { id, itemid } = req.params;
-  const token = req.cookies.token;
-  console.log(token);
+  // const token = req.cookies.token;
+  // console.log(token);
   try {
     const MyListe = await Liste.findById(id);
     if (!MyListe) {
